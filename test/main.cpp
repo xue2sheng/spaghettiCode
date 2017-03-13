@@ -20,8 +20,8 @@ namespace test = spaghettiCode;
  struct e3 {};
 
  struct Data {
-    test::Input i;
-    test::Output o;
+    test::Input i{};
+    test::Output o{};
  };
 
  struct guard {
@@ -46,7 +46,10 @@ namespace test = spaghettiCode;
 
 // if needed global init for all the test cases
 struct GlobalInit {
-  GlobalInit() {}
+  GlobalInit() {
+     Data data{{},{}};
+     dump(sml::sm<::testing, sml::testing>{data});
+  }
  ~GlobalInit() {}
 };
 BOOST_GLOBAL_FIXTURE( GlobalInit );
@@ -62,7 +65,7 @@ BOOST_AUTO_TEST_CASE( test000 ) {
      using namespace sml;
      Data data{{5,3}, {}};
      sml::sm<::testing, sml::testing> sm{data};
-     dump(sm);
+     //dump(sm);
      sm.__set_current_states("s2"_s);
      sm.process_event(e3{});
      BOOST_CHECK( sm.is(X) ); 
