@@ -3,9 +3,11 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "spaghettiCode.h"
 #include <boost/sml.hpp>
 #include <cassert> 
+#include "spaghettiCode.h"
+#include "utils/sml2plantuml.h"
+
 namespace sml = boost::sml;
 namespace test = spaghettiCode;
 
