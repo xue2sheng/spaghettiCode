@@ -30,10 +30,12 @@ static std::string readable_name( const char* mangled_name )
     else return mangled_name ;
 }
 
+// boost::sml::v1_1_0::aux::zero_wrapper<guard, void>
 static std::string unwrapped_name( const char* mangled_name )
 {
+    static std::regex wrapper{R"(boost::sml::v1_1_0::aux::zero_wrapper<(\w+), void>)"};
     std::string demangled_name{readable_name(mangled_name)};
-    return demangled_name;
+    return std::regex_replace(demangled_name, wrapper, "$1");
 } 
 
 #else // not GCC
@@ -66,15 +68,15 @@ void dump_transition() noexcept {
   }
 
   if (has_event) {
-    std::cout << " " << typeid(typename T::event).name();
+    std::cout << " " << unwrapped_name(typeid(typename T::event).name());
   }
 
   if (has_guard) {
-    std::cout << " [" << typeid(typename T::guard).name() << "]";
+    std::cout << " [" << unwrapped_name(typeid(typename T::guard).name()) << "]";
   }
 
   if (has_action) {
-    std::cout << " / " << typeid(typename T::action).name();
+    std::cout << " / " << unwrapped_name(typeid(typename T::action).name());
   }
 
   std::cout << std::endl;

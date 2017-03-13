@@ -24,13 +24,17 @@ namespace test = spaghettiCode;
     test::Output o;
  };
 
+ struct guard {
+   bool operator()(Data& d) { return !d.o.z; };
+ } guard;
+
+ struct action {
+   bool operator()(Data& d) { d.o.z = d.i.x + d.i.y; };
+ } action;
+
  struct testing {
   auto operator()() const noexcept {
     using namespace sml;
-
-    const auto guard = [](Data& d) { return !d.o.z; };
-    const auto action = [](Data& d) { d.o.z = d.i.x + d.i.y; };
-
     return make_transition_table(
        *"idle"_s + event<e1> = "s1"_s
       , "s1"_s + event<e2> = "s2"_s
@@ -58,6 +62,7 @@ BOOST_AUTO_TEST_CASE( test000 ) {
      using namespace sml;
      Data data{{5,3}, {}};
      sml::sm<::testing, sml::testing> sm{data};
+     dump(sm);
      sm.__set_current_states("s2"_s);
      sm.process_event(e3{});
      BOOST_CHECK( sm.is(X) ); 
