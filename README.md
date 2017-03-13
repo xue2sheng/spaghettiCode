@@ -10,3 +10,23 @@ Using [Boost SML](http://boost-experimental.github.io/sml/index.html) in order t
 Besides, it's possible to visualize that *state machine* into automatically generated [PlantUML](http://plantuml.com) diagrams in order to discuss corner cases or just feedback the usual [Doxygen](http://www.stack.nl/~dimitri/doxygen), [Markdown](https://guides.github.com/features/mastering-markdown), or [Wiki pages](https://www.mediawiki.org/wiki/MediaWiki) documentation. In a perfect word, that **plantuml** diagrams should generate **c++** code.
 
 The [trickest point](http://www.cplusplus.com/forum/beginner/100627) is process all the *typeid* info into something more human friendly. Only **gcc** solution is implemented on this example.
+
+## Example
+
+**Boost SML** state machine can be automatically dumped as a **UML** diagram:
+
+           @startuml logic.png
+           [*] --> idle
+           idle --> s1 : e1
+           s1 --> s2 : e2
+           s2 --> terminate : e3 [guard] / action
+           @enduml
+
+And converted into a **png**:
+
+           java -jar /opt/plantuml/plantuml.jar -o images/  README.md
+
+So the image looks like:
+
+![Logic diagram](/images/logic.png)
+
