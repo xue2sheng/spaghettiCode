@@ -34,9 +34,12 @@ static std::string readable_name( const char* mangled_name )
 // boost::sml::v1_1_0::aux::zero_wrapper<guard, void>
 static std::string unwrapped_name( const char* mangled_name )
 {
-    static std::regex wrapper{R"(boost::sml::v1_1_0::aux::zero_wrapper<(\w+), void>)"};
+    //static std::regex wrapper{R"(boost::sml::v1_1_0::aux::zero_wrapper<(\w+).*)"};
+    static std::regex wrapper{R"(.*<(\w+))"};
+    static std::regex namespaceInfo{R"(.*::(\w+))"};
+    static std::regex voidEnd{R"(, void>)"};
     std::string demangled_name{readable_name(mangled_name)};
-    return std::regex_replace(demangled_name, wrapper, "$1");
+    return std::regex_replace(std::regex_replace(std::regex_replace(demangled_name, namespaceInfo, "$1"), wrapper, "$1"), voidEnd, "");
 } 
 
 #else // not GCC
@@ -91,9 +94,9 @@ void dump_transitions(const T<Ts...>&) noexcept {
 
 template <class SM>
 void dump(const SM&, const std::string image_name = std::string{}) noexcept {
-  std::cout << "@startuml " << image_name  << std::endl;
+  std::cout << std::endl << "@startuml " << image_name  << std::endl;
   dump_transitions(typename SM::transitions{});
-  std::cout << "@enduml" << std::endl;
+  std::cout << "@enduml" << std::endl << std::endl;
 }
 
 #endif // SML2PLANTUML_H
