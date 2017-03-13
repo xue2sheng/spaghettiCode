@@ -6,50 +6,15 @@
 #include <boost/sml.hpp>
 #include <cassert> 
 #include "spaghettiCode.h"
-#include "utils/sml2plantuml.h"
+#include "logic.h"
 
 namespace sml = boost::sml;
 namespace test = spaghettiCode;
 
 // just logging something ( --log_level=message )
 
-
-/************* BEGIN:  Model your spaghetti code in as UML state machine ************/
- struct e1 {};
- struct e2 {};
- struct e3 {};
-
- struct Data {
-    test::Input i{};
-    test::Output o{};
- };
-
- struct guard {
-   bool operator()(Data& d) { return !d.o.z; };
- } guard;
-
- struct action {
-   bool operator()(Data& d) { d.o.z = d.i.x + d.i.y; };
- } action;
-
- struct testing {
-  auto operator()() const noexcept {
-    using namespace sml;
-    return make_transition_table(
-       *"idle"_s + event<e1> = "s1"_s
-      , "s1"_s + event<e2> = "s2"_s
-      , "s2"_s + event<e3> [guard] / action = X // transition under test
-    );
-  }
- };
-/************* END:  Model your spaghetti code in as UML state machine ************/
-
-// if needed global init for all the test cases
 struct GlobalInit {
-  GlobalInit() {
-     Data data{{},{}};
-     dump(sml::sm<::testing, sml::testing>{data});
-  }
+  GlobalInit() { test::logic::dump(); }
  ~GlobalInit() {}
 };
 BOOST_GLOBAL_FIXTURE( GlobalInit );
@@ -63,9 +28,9 @@ BOOST_AUTO_TEST_CASE( test000 ) {
 
      // test the logic
      using namespace sml;
+     using namespace test::logic;
      Data data{{5,3}, {}};
-     sml::sm<::testing, sml::testing> sm{data};
-     //dump(sm);
+     sml::sm<test::logic::testing, sml::testing> sm{data};
      sm.__set_current_states("s2"_s);
      sm.process_event(e3{});
      BOOST_CHECK( sm.is(X) ); 

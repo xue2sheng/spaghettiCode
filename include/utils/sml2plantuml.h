@@ -1,5 +1,6 @@
 /// @file sml2plantuml.h
 /// @brief header utility library intended to be used by internal .cpp unit tests.
+/// @remarks use with care: compilation time could be increased with huge diagrams.
 #ifndef SML2PLANTUML_H
 #define SML2PLANTUML_H
 
@@ -89,10 +90,10 @@ void dump_transitions(const T<Ts...>&) noexcept {
 }
 
 template <class SM>
-void dump(const SM&) noexcept {
-  std::cout << "@startuml" << std::endl << std::endl;
+void dump(const SM&, const std::string image_name = std::string{}) noexcept {
+  std::cout << "@startuml " << image_name  << std::endl;
   dump_transitions(typename SM::transitions{});
-  std::cout << std::endl << "@enduml" << std::endl;
+  std::cout << "@enduml" << std::endl;
 }
 
 #endif // SML2PLANTUML_H
