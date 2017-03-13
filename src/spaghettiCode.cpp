@@ -3,7 +3,7 @@
  *
  */
 
-#include "../include/spaghettiCode.h"
+#include "spaghettiCode.h"
 #include "version.h"
 
 bool spaghettiCode::mess(const spaghettiCode::Input& input, spaghettiCode::Output& output)

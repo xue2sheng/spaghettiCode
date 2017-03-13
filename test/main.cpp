@@ -3,7 +3,9 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include "../include/spaghettiCode.h"
+#include "spaghettiCode.h"
+#include "boost/sml.hpp"
+namespace sml = boost::sml;
 
 // just logging something ( --log_level=message )
 
