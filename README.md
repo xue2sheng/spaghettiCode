@@ -15,7 +15,7 @@ The [trickiest point](http://www.cplusplus.com/forum/beginner/100627) is process
 
 Developers try to avoid writting spaghetti code as much as possible in order to make their lives easier when it comes down to debugging in the future but life is a bitch:
 
-![Perfection](/images/perfection.jpg)
+<img src="/images/perfection.jpg" alt="Perfection" width="100" height="100"/>
 
 ## Technical details
 
