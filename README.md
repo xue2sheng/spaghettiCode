@@ -18,9 +18,10 @@ The [trickiest point](http://www.cplusplus.com/forum/beginner/100627) is process
            @startuml logic.png
            [*] --> idle
            idle --> state1 : event1
-           state1 --> state2 : event2
-           state2 --> terminate : event3 [guard] / action
-           @enduml
+           state1 --> state2 : event2 [guard] / action
+           state2 --> state1 : event3 [guard]
+           state2 --> [*] : event4 / action
+           @enduml 
 
 And converted into a **png**:
 

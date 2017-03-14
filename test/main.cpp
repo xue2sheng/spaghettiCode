@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE( test000 ) {
      Data data{{5,3}, {}};
      sml::sm<test::logic::testing, sml::testing> sm{data};
      sm.__set_current_states("state2"_s);
-     sm.process_event(event3{});
+     sm.process_event(event4{});
      BOOST_CHECK( sm.is(X) ); 
      BOOST_CHECK( output.z == data.o.z ); 
 

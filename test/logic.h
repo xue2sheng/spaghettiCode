@@ -12,6 +12,7 @@ namespace spaghettiCode::logic {
  struct event1 {};
  struct event2 {};
  struct event3 {};
+ struct event4 {};
 
  struct Data {
     test::Input i{};
@@ -30,9 +31,12 @@ namespace spaghettiCode::logic {
   auto operator()() const noexcept {
     using namespace sml;
     return make_transition_table(
-       *"idle"_s + event<event1> = "state1"_s
-      , "state1"_s + event<event2> = "state2"_s
-      , "state2"_s + event<event3> [guard] / action = X // transition under test
+
+      *"idle"_s + event<event1> = "state1"_s
+      , "state1"_s + event<event2> [ guard ] / action = "state2"_s
+      , "state2"_s + event<event3> [ guard ] = "state1"_s
+      , "state2"_s + event<event4> / action = X
+
     );
   }
  };

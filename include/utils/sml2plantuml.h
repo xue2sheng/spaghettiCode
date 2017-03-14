@@ -53,7 +53,7 @@ template <class T>
 void dump_transition() noexcept {
   auto src_state = std::string{sml::aux::string<typename T::src_state>{}.c_str()};
   auto dst_state = std::string{sml::aux::string<typename T::dst_state>{}.c_str()};
-  if (dst_state == "X") {
+  if (dst_state == "X" || dst_state == "terminate") {
     dst_state = "[*]";
   }
 
