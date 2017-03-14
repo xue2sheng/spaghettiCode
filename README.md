@@ -52,9 +52,9 @@ That looks like:
 
 ## Summary
 
-Test cases based on documented UML state machines are easier to maintain and it can make the difference when it comes to refactor your base code in the future:
+Test cases based on documented UML state machines are easier to maintain and it can make the difference when it comes to refactoring your base code in the future:
 
-### Refactoring without proper test case
+### Refactoring without proper test cases
 
 <img src="/images/madness.jpg" alt="Madness" width="250" height="250"/>
 
