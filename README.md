@@ -5,21 +5,22 @@ How to write test cases for spaghetti code, trying not to resort into spaghetti 
 
 ## Logic as UML diagrams
 
-Using [Boost SML](http://boost-experimental.github.io/sml/index.html) in order to avoid typical massive **if else** or **switch case** logic which tends to grow out of any kind of control after several feature addtions. 
+Using [Boost SML](http://boost-experimental.github.io/sml/index.html) in order to avoid typical massive **if else** or **switch case** logic which tends to grow out of any kind of control after several feature additions. 
 
 Besides, it's possible to visualize that *state machine* into automatically generated [PlantUML](http://plantuml.com) diagrams in order to discuss corner cases or just feedback the usual [Doxygen](http://www.stack.nl/~dimitri/doxygen), [Markdown](https://guides.github.com/features/mastering-markdown), or [Wiki pages](https://www.mediawiki.org/wiki/MediaWiki) documentation. In a perfect word, that **plantuml** diagrams should generate **c++** code.
 
-The [trickest point](http://www.cplusplus.com/forum/beginner/100627) is process all the *typeid* info into something more human friendly. Only **gcc** solution is implemented on this example.
+The [trickiest point](http://www.cplusplus.com/forum/beginner/100627) is process all the *typeid* info into something more human friendly. Only **gcc** solution is implemented on this example.
 
 ## Example
 
 **Boost SML** state machine can be automatically dumped as a **UML** diagram:
 
+
            @startuml logic.png
            [*] --> idle
-           idle --> s1 : e1
-           s1 --> s2 : e2
-           s2 --> terminate : e3 [guard] / action
+           idle --> state1 : event1
+           state1 --> state2 : event2
+           sstat2 --> terminate : event3 [guard] / action
            @enduml
 
 And converted into a **png**:
