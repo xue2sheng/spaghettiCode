@@ -32,7 +32,7 @@ namespace spaghettiCode::logic {
     return make_transition_table(
        *"idle"_s + event<event1> = "state1"_s
       , "state1"_s + event<event2> = "state2"_s
-      , "sstat2"_s + event<event3> [guard] / action = X // transition under test
+      , "state2"_s + event<event3> [guard] / action = X // transition under test
     );
   }
  };

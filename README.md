@@ -15,12 +15,11 @@ The [trickiest point](http://www.cplusplus.com/forum/beginner/100627) is process
 
 **Boost SML** state machine can be automatically dumped as a **UML** diagram:
 
-
            @startuml logic.png
            [*] --> idle
            idle --> state1 : event1
            state1 --> state2 : event2
-           sstat2 --> terminate : event3 [guard] / action
+           state2 --> terminate : event3 [guard] / action
            @enduml
 
 And converted into a **png**:
