@@ -11,9 +11,22 @@ Besides, it's possible to visualize that *state machine* into automatically gene
 
 The [trickiest point](http://www.cplusplus.com/forum/beginner/100627) is process all the *typeid* info into something more human friendly. Only **gcc** solution is implemented on this example.
 
-## Example
+## What is the rationale behind
 
-**Boost SML** state machine can be automatically dumped as a **UML** diagram:
+Developers try to avoid writting spaghetti code as much as possible in order to make their lives easier when it comes down to debugging in the future but life is a bitch:
+
+![Perfection](/images/perfection.jpg)
+
+## Technical details
+
+**Boost SML** state machine as the following:
+
+           *"idle"_s + event<event1> = "state1"_s
+           , "state1"_s + event<event2> [ guard ] / action = "state2"_s
+           , "state2"_s + event<event3> [ guard ] = "state1"_s
+           , "state2"_s + event<event4> / action = X
+
+Can be automatically dumped as a **UML** diagram:
 
            @startuml logic.png
            [*] --> idle
@@ -23,11 +36,11 @@ The [trickiest point](http://www.cplusplus.com/forum/beginner/100627) is process
            state2 --> [*] : event4 / action
            @enduml 
 
-And converted into a **png**:
+To be converted into a **png**:
 
            java -jar /opt/plantuml/plantuml.jar -o images/  README.md
 
-So the image looks like:
+That looks like:
 
 ![Logic diagram](/images/logic.png)
 
